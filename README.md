@@ -1,5 +1,5 @@
 <!-- BEGIN_TF_DOCS -->
-# terraform-azurerm-avm-res-azurestackhci-logicalnetwork
+# terraform-azurerm-avm-res-azurestackhci-logical\_network
 
 Module to provision azure stack hci logical networks.
 
@@ -21,29 +21,27 @@ The following requirements are needed by this module:
 
 - <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (~> 3.71)
 
-- <a name="requirement_modtm"></a> [modtm](#requirement\_modtm) (~> 0.3)
-
 - <a name="requirement_random"></a> [random](#requirement\_random) (~> 3.5)
 
 ## Resources
 
 The following resources are used by this module:
 
-- [azapi_resource.logicalNetwork](https://registry.terraform.io/providers/azure/azapi/latest/docs/resources/resource) (resource)
+- [azapi_resource.logical_network](https://registry.terraform.io/providers/azure/azapi/latest/docs/resources/resource) (resource)
 - [azurerm_management_lock.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/management_lock) (resource)
 - [azurerm_role_assignment.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment) (resource)
-- [modtm_telemetry.telemetry](https://registry.terraform.io/providers/azure/modtm/latest/docs/resources/telemetry) (resource)
+- [modtm_telemetry.telemetry](https://registry.terraform.io/providers/hashicorp/modtm/latest/docs/resources/telemetry) (resource)
 - [random_uuid.telemetry](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/uuid) (resource)
 - [azurerm_client_config.telemetry](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/client_config) (data source)
 - [azurerm_resource_group.rg](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/resource_group) (data source)
-- [modtm_module_source.telemetry](https://registry.terraform.io/providers/azure/modtm/latest/docs/data-sources/module_source) (data source)
+- [modtm_module_source.telemetry](https://registry.terraform.io/providers/hashicorp/modtm/latest/docs/data-sources/module_source) (data source)
 
 <!-- markdownlint-disable MD013 -->
 ## Required Inputs
 
 The following input variables are required:
 
-### <a name="input_customLocationId"></a> [customLocationId](#input\_customLocationId)
+### <a name="input_custom_location_id"></a> [custom\_location\_id](#input\_custom\_location\_id)
 
 Description: The id of the Custom location that used to create hybrid aks
 
@@ -61,7 +59,7 @@ Description: The name of the logical network
 
 Type: `string`
 
-### <a name="input_resourceGroupId"></a> [resourceGroupId](#input\_resourceGroupId)
+### <a name="input_resource_group_id"></a> [resource\_group\_id](#input\_resource\_group\_id)
 
 Description: The resource group ID for the Azure Stack HCI logical network.
 
@@ -73,7 +71,7 @@ Description: The resource group where the resources will be deployed.
 
 Type: `string`
 
-### <a name="input_vmSwitchName"></a> [vmSwitchName](#input\_vmSwitchName)
+### <a name="input_vm_switch_name"></a> [vm\_switch\_name](#input\_vm\_switch\_name)
 
 Description: The name of the virtual switch that is used by the network.
 
@@ -83,7 +81,7 @@ Type: `string`
 
 The following input variables are optional (have default values):
 
-### <a name="input_addressPrefix"></a> [addressPrefix](#input\_addressPrefix)
+### <a name="input_address_prefix"></a> [address\_prefix](#input\_address\_prefix)
 
 Description: The CIDR prefix of the subnet that used by kubernetes cluster nodes, it will create VM with the ip address in this range
 
@@ -115,7 +113,7 @@ object({
 
 Default: `null`
 
-### <a name="input_defaultGateway"></a> [defaultGateway](#input\_defaultGateway)
+### <a name="input_default_gateway"></a> [default\_gateway](#input\_default\_gateway)
 
 Description: The default gateway for the network.
 
@@ -123,41 +121,7 @@ Type: `string`
 
 Default: `null`
 
-### <a name="input_diagnostic_settings"></a> [diagnostic\_settings](#input\_diagnostic\_settings)
-
-Description: A map of diagnostic settings to create on the Key Vault. The map key is deliberately arbitrary to avoid issues where map keys maybe unknown at plan time.
-
-- `name` - (Optional) The name of the diagnostic setting. One will be generated if not set, however this will not be unique if you want to create multiple diagnostic setting resources.
-- `log_categories` - (Optional) A set of log categories to send to the log analytics workspace. Defaults to `[]`.
-- `log_groups` - (Optional) A set of log groups to send to the log analytics workspace. Defaults to `["allLogs"]`.
-- `metric_categories` - (Optional) A set of metric categories to send to the log analytics workspace. Defaults to `["AllMetrics"]`.
-- `log_analytics_destination_type` - (Optional) The destination type for the diagnostic setting. Possible values are `Dedicated` and `AzureDiagnostics`. Defaults to `Dedicated`.
-- `workspace_resource_id` - (Optional) The resource ID of the log analytics workspace to send logs and metrics to.
-- `storage_account_resource_id` - (Optional) The resource ID of the storage account to send logs and metrics to.
-- `event_hub_authorization_rule_resource_id` - (Optional) The resource ID of the event hub authorization rule to send logs and metrics to.
-- `event_hub_name` - (Optional) The name of the event hub. If none is specified, the default event hub will be selected.
-- `marketplace_partner_resource_id` - (Optional) The full ARM resource ID of the Marketplace resource to which you would like to send Diagnostic LogsLogs.
-
-Type:
-
-```hcl
-map(object({
-    name                                     = optional(string, null)
-    log_categories                           = optional(set(string), [])
-    log_groups                               = optional(set(string), ["allLogs"])
-    metric_categories                        = optional(set(string), ["AllMetrics"])
-    log_analytics_destination_type           = optional(string, "Dedicated")
-    workspace_resource_id                    = optional(string, null)
-    storage_account_resource_id              = optional(string, null)
-    event_hub_authorization_rule_resource_id = optional(string, null)
-    event_hub_name                           = optional(string, null)
-    marketplace_partner_resource_id          = optional(string, null)
-  }))
-```
-
-Default: `{}`
-
-### <a name="input_dnsServers"></a> [dnsServers](#input\_dnsServers)
+### <a name="input_dns_servers"></a> [dns\_servers](#input\_dns\_servers)
 
 Description: A list of DNS server IP addresses.
 
@@ -175,7 +139,7 @@ Type: `bool`
 
 Default: `true`
 
-### <a name="input_endingAddress"></a> [endingAddress](#input\_endingAddress)
+### <a name="input_ending_address"></a> [ending\_address](#input\_ending\_address)
 
 Description: The ending IP address of the IP address range.
 
@@ -249,7 +213,7 @@ map(object({
 
 Default: `{}`
 
-### <a name="input_startingAddress"></a> [startingAddress](#input\_startingAddress)
+### <a name="input_starting_address"></a> [starting\_address](#input\_starting\_address)
 
 Description: The starting IP address of the IP address range.
 
@@ -265,7 +229,7 @@ Type: `map(string)`
 
 Default: `null`
 
-### <a name="input_vlanId"></a> [vlanId](#input\_vlanId)
+### <a name="input_vlan_id"></a> [vlan\_id](#input\_vlan\_id)
 
 Description: The vlan id of the logical network, default means no vlan id is specified
 

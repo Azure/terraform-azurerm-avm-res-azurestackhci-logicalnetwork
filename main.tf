@@ -26,27 +26,27 @@ resource "azurerm_role_assignment" "this" {
   skip_service_principal_aad_check       = each.value.skip_service_principal_aad_check
 }
 
-resource "azapi_resource" "logicalNetwork" {
+resource "azapi_resource" "logical_network" {
   type = "Microsoft.AzureStackHCI/logicalNetworks@2023-09-01-preview"
   body = {
     extendedLocation = {
-      name = var.customLocationId
+      name = var.custom_location_id
       type = "CustomLocation"
     }
     properties = {
       dhcpOptions = {
-        dnsServers = flatten(var.dnsServers)
+        dns_servers = flatten(var.dns_servers)
       }
       subnets = [{
         name       = "default"
-        properties = local.subnet0Properties
+        properties = local.subnet_0_properties
       }]
-      vmSwitchName = var.vmSwitchName
+      vm_switch_name = var.vm_switch_name
     }
   }
   location  = var.location
   name      = var.name
-  parent_id = var.resourceGroupId
+  parent_id = var.resource_group_id
 
   lifecycle {
     ignore_changes = [
@@ -54,8 +54,8 @@ resource "azapi_resource" "logicalNetwork" {
     ]
 
     precondition {
-      condition     = length(var.startingAddress) > 0 && length(var.endingAddress) > 0 && length(var.defaultGateway) > 0 && length(var.dnsServers) > 0 && length(var.addressPrefix) > 0
-      error_message = "When not using existing logical network, startingAddress, endingAddress, defaultGateway, dnsServers, addressPrefix are required"
+      condition     = length(var.starting_address) > 0 && length(var.ending_address) > 0 && length(var.default_gateway) > 0 && length(var.dns_servers) > 0 && length(var.address_prefix) > 0
+      error_message = "When not using existing logical network, starting_address, ending_address, default_gateway, dns_servers, address_prefix are required"
     }
   }
 }

@@ -15,10 +15,6 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "~> 3.74"
     }
-    modtm = {
-      source  = "azure/modtm"
-      version = "~> 0.3"
-    }
     random = {
       source  = "hashicorp/random"
       version = "~> 3.5"
@@ -71,19 +67,19 @@ module "test" {
   # source             = "Azure/avm-<res/ptn>-<name>/azurerm"
   # ...
   location            = data.azurerm_resource_group.rg.location
-  name                = var.logicalNetworkName
+  name                = var.logical_network_name
   resource_group_name = data.azurerm_resource_group.rg.name
 
-  enable_telemetry = var.enable_telemetry # see variables.tf
-  resourceGroupId  = data.azurerm_resource_group.rg.id
-  customLocationId = data.azapi_resource.customlocation.id
-  vmSwitchName     = "ConvergedSwitch(managementcompute)"
-  startingAddress  = "192.168.1.171"
-  endingAddress    = "192.168.1.190"
-  dnsServers       = ["192.168.1.254"]
-  defaultGateway   = "192.168.1.1"
-  addressPrefix    = "192.168.1.0/24"
-  vlanId           = null
+  enable_telemetry   = var.enable_telemetry # see variables.tf
+  resource_group_id  = data.azurerm_resource_group.rg.id
+  custom_location_id = data.azapi_resource.customlocation.id
+  vm_switch_name     = "ConvergedSwitch(managementcompute)"
+  starting_address   = "192.168.1.171"
+  ending_address     = "192.168.1.190"
+  dns_servers        = ["192.168.1.254"]
+  default_gateway    = "192.168.1.1"
+  address_prefix     = "192.168.1.0/24"
+  vlan_id            = null
 }
 ```
 
@@ -97,8 +93,6 @@ The following requirements are needed by this module:
 - <a name="requirement_azapi"></a> [azapi](#requirement\_azapi) (~> 1.13)
 
 - <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (~> 3.74)
-
-- <a name="requirement_modtm"></a> [modtm](#requirement\_modtm) (~> 0.3)
 
 - <a name="requirement_random"></a> [random](#requirement\_random) (~> 3.5)
 
@@ -121,7 +115,7 @@ Description: The name of the custom location.
 
 Type: `string`
 
-### <a name="input_logicalNetworkName"></a> [logicalNetworkName](#input\_logicalNetworkName)
+### <a name="input_logical_network_name"></a> [logical\_network\_name](#input\_logical\_network\_name)
 
 Description: The name of the logical network
 
@@ -130,12 +124,6 @@ Type: `string`
 ### <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name)
 
 Description: The resource group where the resources will be deployed.
-
-Type: `string`
-
-### <a name="input_siteId"></a> [siteId](#input\_siteId)
-
-Description: A unique identifier for the site.
 
 Type: `string`
 

@@ -2,5 +2,5 @@
 # https://azure.github.io/Azure-Verified-Modules/specs/terraform/#id-tffr2---category-outputs---additional-terraform-outputs
 output "resource_id" {
   description = "This is the full output for the resource."
-  value       = azapi_resource.logicalNetwork.id
+  value       = azapi_resource.logical_network.id
 }

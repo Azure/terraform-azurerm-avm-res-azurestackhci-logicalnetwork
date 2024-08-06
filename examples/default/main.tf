@@ -9,10 +9,6 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "~> 3.74"
     }
-    modtm = {
-      source  = "azure/modtm"
-      version = "~> 0.3"
-    }
     random = {
       source  = "hashicorp/random"
       version = "~> 3.5"
@@ -65,17 +61,17 @@ module "test" {
   # source             = "Azure/avm-<res/ptn>-<name>/azurerm"
   # ...
   location            = data.azurerm_resource_group.rg.location
-  name                = var.logicalNetworkName
+  name                = var.logical_network_name
   resource_group_name = data.azurerm_resource_group.rg.name
 
-  enable_telemetry = var.enable_telemetry # see variables.tf
-  resourceGroupId  = data.azurerm_resource_group.rg.id
-  customLocationId = data.azapi_resource.customlocation.id
-  vmSwitchName     = "ConvergedSwitch(managementcompute)"
-  startingAddress  = "192.168.1.171"
-  endingAddress    = "192.168.1.190"
-  dnsServers       = ["192.168.1.254"]
-  defaultGateway   = "192.168.1.1"
-  addressPrefix    = "192.168.1.0/24"
-  vlanId           = null
+  enable_telemetry   = var.enable_telemetry # see variables.tf
+  resource_group_id  = data.azurerm_resource_group.rg.id
+  custom_location_id = data.azapi_resource.customlocation.id
+  vm_switch_name     = "ConvergedSwitch(managementcompute)"
+  starting_address   = "192.168.1.171"
+  ending_address     = "192.168.1.190"
+  dns_servers        = ["192.168.1.254"]
+  default_gateway    = "192.168.1.1"
+  address_prefix     = "192.168.1.0/24"
+  vlan_id            = null
 }
