@@ -1,9 +1,8 @@
-# TODO: insert locals here.
 locals {
   role_definition_resource_substring = "/providers/Microsoft.Authorization/roleDefinitions"
   subnet_0_properties                = { for k, v in local.subnet_0_properties_full : k => v if v != null }
   subnet_0_properties_full = {
-    address_prefix     = var.address_prefix, # compute from starting address and ending address
+    addressPrefix     = var.address_prefix, # compute from starting address and ending address
     ipAllocationMethod = "Static",
     ipPools = [{
       info  = {}
@@ -17,7 +16,7 @@ locals {
           {
             name = "default"
             properties = {
-              address_prefix   = "0.0.0.0/0",
+              addressPrefix   = "0.0.0.0/0",
               nextHopIpAddress = var.default_gateway
             }
           }

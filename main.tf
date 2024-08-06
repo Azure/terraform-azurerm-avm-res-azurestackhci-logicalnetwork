@@ -35,13 +35,13 @@ resource "azapi_resource" "logical_network" {
     }
     properties = {
       dhcpOptions = {
-        dns_servers = flatten(var.dns_servers)
+        dnsServers = flatten(var.dns_servers)
       }
       subnets = [{
         name       = "default"
         properties = local.subnet_0_properties
       }]
-      vm_switch_name = var.vm_switch_name
+      vmSwitchName = var.vm_switch_name
     }
   }
   location  = var.location
