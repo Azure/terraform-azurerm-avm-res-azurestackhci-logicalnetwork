@@ -1,6 +1,10 @@
 terraform {
   required_version = "~> 1.5"
   required_providers {
+    azapi = {
+      source  = "azure/azapi"
+      version = "~> 1.13"
+    }
     azurerm = {
       source  = "hashicorp/azurerm"
       version = "~> 3.74"
@@ -42,9 +46,14 @@ module "naming" {
 }
 
 # This is required for resource modules
-resource "azurerm_resource_group" "this" {
-  location = module.regions.regions[random_integer.region_index.result].name
-  name     = module.naming.resource_group.name_unique
+data "azurerm_resource_group" "rg" {
+  name = var.resource_group_name
+}
+
+data "azapi_resource" "customlocation" {
+  type      = "Microsoft.ExtendedLocation/customLocations@2021-08-15"
+  name      = var.custom_location_name
+  parent_id = data.azurerm_resource_group.rg.id
 }
 
 # This is the module call
@@ -55,9 +64,18 @@ module "test" {
   source = "../../"
   # source             = "Azure/avm-<res/ptn>-<name>/azurerm"
   # ...
-  location            = azurerm_resource_group.this.location
-  name                = "TODO" # TODO update with module.naming.<RESOURCE_TYPE>.name_unique
-  resource_group_name = azurerm_resource_group.this.name
+  location            = data.azurerm_resource_group.rg.location
+  name                = var.logicalNetworkName
+  resource_group_name = data.azurerm_resource_group.rg.name
 
   enable_telemetry = var.enable_telemetry # see variables.tf
+  resourceGroupId  = data.azurerm_resource_group.rg.id
+  customLocationId = data.azapi_resource.customlocation.id
+  vmSwitchName     = "ConvergedSwitch(managementcompute)"
+  startingAddress  = "192.168.1.171"
+  endingAddress    = "192.168.1.190"
+  dnsServers       = ["192.168.1.254"]
+  defaultGateway   = "192.168.1.1"
+  addressPrefix    = "192.168.1.0/24"
+  vlanId           = null
 }
