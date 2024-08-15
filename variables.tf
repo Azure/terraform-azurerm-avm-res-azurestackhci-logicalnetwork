@@ -69,6 +69,7 @@ variable "dns_servers" {
   type        = list(string)
   default     = []
   description = "A list of DNS server IP addresses."
+  nullable    = false
 }
 
 variable "enable_telemetry" {
