@@ -68,7 +68,7 @@ data "azapi_resource" "customlocation" {
 # with a data source.
 module "test" {
   source = "../../"
-  # source             = "Azure/avm-<res/ptn>-<name>/azurerm"
+  # source             = "Azure/avm-res-azurestackhci-logicalnetwork/azurerm"
   # ...
   location            = data.azurerm_resource_group.rg.location
   name                = var.logical_network_name
