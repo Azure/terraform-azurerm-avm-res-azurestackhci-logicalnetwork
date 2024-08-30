@@ -7,13 +7,13 @@ This deploys the module in its simplest form.
 terraform {
   required_version = "~> 1.5"
   required_providers {
+    azapi = {
+      source  = "azure/azapi"
+      version = "~> 1.13"
+    }
     azurerm = {
       source  = "hashicorp/azurerm"
       version = "~> 3.74"
-    }
-    modtm = {
-      source  = "azure/modtm"
-      version = "~> 0.3"
     }
     random = {
       source  = "hashicorp/random"
@@ -23,7 +23,11 @@ terraform {
 }
 
 provider "azurerm" {
-  features {}
+  features {
+    resource_group {
+      prevent_deletion_if_contains_resources = false
+    }
+  }
 }
 
 
@@ -48,9 +52,14 @@ module "naming" {
 }
 
 # This is required for resource modules
-resource "azurerm_resource_group" "this" {
-  location = module.regions.regions[random_integer.region_index.result].name
-  name     = module.naming.resource_group.name_unique
+data "azurerm_resource_group" "rg" {
+  name = var.resource_group_name
+}
+
+data "azapi_resource" "customlocation" {
+  type      = "Microsoft.ExtendedLocation/customLocations@2021-08-15"
+  name      = var.custom_location_name
+  parent_id = data.azurerm_resource_group.rg.id
 }
 
 # This is the module call
@@ -59,13 +68,22 @@ resource "azurerm_resource_group" "this" {
 # with a data source.
 module "test" {
   source = "../../"
-  # source             = "Azure/avm-<res/ptn>-<name>/azurerm"
+  # source             = "Azure/avm-res-azurestackhci-logicalnetwork/azurerm"
   # ...
-  location            = azurerm_resource_group.this.location
-  name                = "TODO" # TODO update with module.naming.<RESOURCE_TYPE>.name_unique
-  resource_group_name = azurerm_resource_group.this.name
+  location            = data.azurerm_resource_group.rg.location
+  name                = var.logical_network_name
+  resource_group_name = data.azurerm_resource_group.rg.name
 
-  enable_telemetry = var.enable_telemetry # see variables.tf
+  enable_telemetry   = var.enable_telemetry # see variables.tf
+  resource_group_id  = data.azurerm_resource_group.rg.id
+  custom_location_id = data.azapi_resource.customlocation.id
+  vm_switch_name     = "ConvergedSwitch(managementcompute)"
+  starting_address   = "192.168.1.171"
+  ending_address     = "192.168.1.190"
+  dns_servers        = ["192.168.1.254"]
+  default_gateway    = "192.168.1.1"
+  address_prefix     = "192.168.1.0/24"
+  vlan_id            = null
 }
 ```
 
@@ -76,9 +94,9 @@ The following requirements are needed by this module:
 
 - <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (~> 1.5)
 
-- <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (~> 3.74)
+- <a name="requirement_azapi"></a> [azapi](#requirement\_azapi) (~> 1.13)
 
-- <a name="requirement_modtm"></a> [modtm](#requirement\_modtm) (~> 0.3)
+- <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (~> 3.74)
 
 - <a name="requirement_random"></a> [random](#requirement\_random) (~> 3.5)
 
@@ -86,13 +104,32 @@ The following requirements are needed by this module:
 
 The following resources are used by this module:
 
-- [azurerm_resource_group.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/resource_group) (resource)
 - [random_integer.region_index](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/integer) (resource)
+- [azapi_resource.customlocation](https://registry.terraform.io/providers/azure/azapi/latest/docs/data-sources/resource) (data source)
+- [azurerm_resource_group.rg](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/resource_group) (data source)
 
 <!-- markdownlint-disable MD013 -->
 ## Required Inputs
 
-No required inputs.
+The following input variables are required:
+
+### <a name="input_custom_location_name"></a> [custom\_location\_name](#input\_custom\_location\_name)
+
+Description: The name of the custom location.
+
+Type: `string`
+
+### <a name="input_logical_network_name"></a> [logical\_network\_name](#input\_logical\_network\_name)
+
+Description: The name of the logical network
+
+Type: `string`
+
+### <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name)
+
+Description: The resource group where the resources will be deployed.
+
+Type: `string`
 
 ## Optional Inputs
 

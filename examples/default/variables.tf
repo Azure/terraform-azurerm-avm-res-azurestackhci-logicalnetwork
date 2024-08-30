@@ -1,3 +1,18 @@
+variable "custom_location_name" {
+  type        = string
+  description = "The name of the custom location."
+}
+
+variable "logical_network_name" {
+  type        = string
+  description = "The name of the logical network"
+}
+
+variable "resource_group_name" {
+  type        = string
+  description = "The resource group where the resources will be deployed."
+}
+
 variable "enable_telemetry" {
   type        = bool
   default     = true
