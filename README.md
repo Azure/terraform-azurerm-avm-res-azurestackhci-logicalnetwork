@@ -143,6 +143,14 @@ object({
 
 Default: `null`
 
+### <a name="input_logical_network_tags"></a> [logical\_network\_tags](#input\_logical\_network\_tags)
+
+Description: (Optional) Tags of the logical network.
+
+Type: `map(string)`
+
+Default: `null`
+
 ### <a name="input_role_assignments"></a> [role\_assignments](#input\_role\_assignments)
 
 Description: A map of role assignments to create on this resource. The map key is deliberately arbitrary to avoid issues where map keys maybe unknown at plan time.
@@ -173,6 +181,14 @@ map(object({
 
 Default: `{}`
 
+### <a name="input_route_name"></a> [route\_name](#input\_route\_name)
+
+Description: The name of the route
+
+Type: `string`
+
+Default: `"default"`
+
 ### <a name="input_starting_address"></a> [starting\_address](#input\_starting\_address)
 
 Description: The starting IP address of the IP address range.
@@ -180,6 +196,14 @@ Description: The starting IP address of the IP address range.
 Type: `string`
 
 Default: `null`
+
+### <a name="input_subnet_0_name"></a> [subnet\_0\_name](#input\_subnet\_0\_name)
+
+Description: The name of the subnet
+
+Type: `string`
+
+Default: `"default"`
 
 ### <a name="input_vlan_id"></a> [vlan\_id](#input\_vlan\_id)
 
