@@ -9,10 +9,6 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "~> 3.74"
     }
-    random = {
-      source  = "hashicorp/random"
-      version = "~> 3.5"
-    }
   }
 }
 
@@ -57,5 +53,4 @@ module "test" {
   dns_servers        = ["192.168.1.254"]
   default_gateway    = "192.168.1.1"
   address_prefix     = "192.168.1.0/24"
-  vlan_id            = null
 }
