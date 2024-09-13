@@ -9,10 +9,6 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "~> 3.74"
     }
-    random = {
-      source  = "hashicorp/random"
-      version = "~> 3.5"
-    }
   }
 }
 
@@ -22,27 +18,6 @@ provider "azurerm" {
       prevent_deletion_if_contains_resources = false
     }
   }
-}
-
-
-## Section to provide a random Azure region for the resource group
-# This allows us to randomize the region for the resource group.
-module "regions" {
-  source  = "Azure/avm-utl-regions/azurerm"
-  version = "~> 0.1"
-}
-
-# This allows us to randomize the region for the resource group.
-resource "random_integer" "region_index" {
-  max = length(module.regions.regions) - 1
-  min = 0
-}
-## End of section to provide a random Azure region for the resource group
-
-# This ensures we have unique CAF compliant names for our resources.
-module "naming" {
-  source  = "Azure/naming/azurerm"
-  version = "~> 0.3"
 }
 
 # This is required for resource modules
@@ -63,7 +38,8 @@ data "azapi_resource" "customlocation" {
 module "test" {
   source = "../../"
   # source             = "Azure/avm-res-azurestackhci-logicalnetwork/azurerm"
-  # ...
+  # version = "~> 0.1.0"
+
   location            = data.azurerm_resource_group.rg.location
   name                = var.logical_network_name
   resource_group_name = data.azurerm_resource_group.rg.name
@@ -77,5 +53,4 @@ module "test" {
   dns_servers        = ["192.168.1.254"]
   default_gateway    = "192.168.1.1"
   address_prefix     = "192.168.1.0/24"
-  vlan_id            = null
 }

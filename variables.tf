@@ -85,6 +85,12 @@ DESCRIPTION
   }
 }
 
+variable "logical_network_tags" {
+  type        = map(string)
+  default     = null
+  description = "(Optional) Tags of the logical network."
+}
+
 variable "role_assignments" {
   type = map(object({
     role_definition_id_or_name             = string
@@ -112,10 +118,22 @@ DESCRIPTION
   nullable    = false
 }
 
+variable "route_name" {
+  type        = string
+  default     = "default"
+  description = "The name of the route"
+}
+
 variable "starting_address" {
   type        = string
   default     = null
   description = "The starting IP address of the IP address range."
+}
+
+variable "subnet_0_name" {
+  type        = string
+  default     = "default"
+  description = "The name of the subnet"
 }
 
 variable "vlan_id" {

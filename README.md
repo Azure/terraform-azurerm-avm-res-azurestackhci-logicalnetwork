@@ -3,13 +3,6 @@
 
 Module to provision azure stack hci logical networks.
 
-> [!IMPORTANT]
-> As the overall AVM framework is not GA (generally available) yet - the CI framework and test automation is not fully functional and implemented across all supported languages yet - breaking changes are expected, and additional customer feedback is yet to be gathered and incorporated. Hence, modules **MUST NOT** be published at version `1.0.0` or higher at this time.
->
-> All module **MUST** be published as a pre-release version (e.g., `0.1.0`, `0.1.1`, `0.2.0`, etc.) until the AVM framework becomes GA.
->
-> However, it is important to note that this **DOES NOT** mean that the modules cannot be consumed and utilized. They **CAN** be leveraged in all types of environments (dev, test, prod etc.). Consumers can treat them just like any other IaC module and raise issues or feature requests against them as they learn from the usage of the module. Consumers should also read the release notes for each version, if considering updating to a more recent version of a module to see if there are any considerations or breaking changes etc.
-
 <!-- markdownlint-disable MD033 -->
 ## Requirements
 
@@ -143,6 +136,14 @@ object({
 
 Default: `null`
 
+### <a name="input_logical_network_tags"></a> [logical\_network\_tags](#input\_logical\_network\_tags)
+
+Description: (Optional) Tags of the logical network.
+
+Type: `map(string)`
+
+Default: `null`
+
 ### <a name="input_role_assignments"></a> [role\_assignments](#input\_role\_assignments)
 
 Description: A map of role assignments to create on this resource. The map key is deliberately arbitrary to avoid issues where map keys maybe unknown at plan time.
@@ -173,6 +174,14 @@ map(object({
 
 Default: `{}`
 
+### <a name="input_route_name"></a> [route\_name](#input\_route\_name)
+
+Description: The name of the route
+
+Type: `string`
+
+Default: `"default"`
+
 ### <a name="input_starting_address"></a> [starting\_address](#input\_starting\_address)
 
 Description: The starting IP address of the IP address range.
@@ -180,6 +189,14 @@ Description: The starting IP address of the IP address range.
 Type: `string`
 
 Default: `null`
+
+### <a name="input_subnet_0_name"></a> [subnet\_0\_name](#input\_subnet\_0\_name)
+
+Description: The name of the subnet
+
+Type: `string`
+
+Default: `"default"`
 
 ### <a name="input_vlan_id"></a> [vlan\_id](#input\_vlan\_id)
 

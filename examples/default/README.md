@@ -15,10 +15,6 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "~> 3.74"
     }
-    random = {
-      source  = "hashicorp/random"
-      version = "~> 3.5"
-    }
   }
 }
 
@@ -28,27 +24,6 @@ provider "azurerm" {
       prevent_deletion_if_contains_resources = false
     }
   }
-}
-
-
-## Section to provide a random Azure region for the resource group
-# This allows us to randomize the region for the resource group.
-module "regions" {
-  source  = "Azure/avm-utl-regions/azurerm"
-  version = "~> 0.1"
-}
-
-# This allows us to randomize the region for the resource group.
-resource "random_integer" "region_index" {
-  max = length(module.regions.regions) - 1
-  min = 0
-}
-## End of section to provide a random Azure region for the resource group
-
-# This ensures we have unique CAF compliant names for our resources.
-module "naming" {
-  source  = "Azure/naming/azurerm"
-  version = "~> 0.3"
 }
 
 # This is required for resource modules
@@ -69,7 +44,8 @@ data "azapi_resource" "customlocation" {
 module "test" {
   source = "../../"
   # source             = "Azure/avm-res-azurestackhci-logicalnetwork/azurerm"
-  # ...
+  # version = "~> 0.1.0"
+
   location            = data.azurerm_resource_group.rg.location
   name                = var.logical_network_name
   resource_group_name = data.azurerm_resource_group.rg.name
@@ -83,7 +59,6 @@ module "test" {
   dns_servers        = ["192.168.1.254"]
   default_gateway    = "192.168.1.1"
   address_prefix     = "192.168.1.0/24"
-  vlan_id            = null
 }
 ```
 
@@ -98,13 +73,10 @@ The following requirements are needed by this module:
 
 - <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (~> 3.74)
 
-- <a name="requirement_random"></a> [random](#requirement\_random) (~> 3.5)
-
 ## Resources
 
 The following resources are used by this module:
 
-- [random_integer.region_index](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/integer) (resource)
 - [azapi_resource.customlocation](https://registry.terraform.io/providers/azure/azapi/latest/docs/data-sources/resource) (data source)
 - [azurerm_resource_group.rg](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/resource_group) (data source)
 
@@ -152,18 +124,6 @@ No outputs.
 ## Modules
 
 The following Modules are called:
-
-### <a name="module_naming"></a> [naming](#module\_naming)
-
-Source: Azure/naming/azurerm
-
-Version: ~> 0.3
-
-### <a name="module_regions"></a> [regions](#module\_regions)
-
-Source: Azure/avm-utl-regions/azurerm
-
-Version: ~> 0.1
 
 ### <a name="module_test"></a> [test](#module\_test)
 
