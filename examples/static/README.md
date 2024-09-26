@@ -55,7 +55,7 @@ module "test" {
   custom_location_id = data.azapi_resource.customlocation.id
   vm_switch_name     = "ConvergedSwitch(managementcomputestorage)"
 
-  ip_allocation_method = var.ip_allocation_method
+  ip_allocation_method = "Static"
   starting_address     = "192.168.200.0"
   ending_address       = "192.168.200.255"
   default_gateway      = "192.168.200.1"
@@ -123,14 +123,6 @@ If it is set to false, then no telemetry will be collected.
 Type: `bool`
 
 Default: `true`
-
-### <a name="input_ip_allocation_method"></a> [ip\_allocation\_method](#input\_ip\_allocation\_method)
-
-Description: The IP address allocation method, must be either 'Static' or 'Dynamic'.
-
-Type: `string`
-
-Default: `"Static"`
 
 ## Outputs
 

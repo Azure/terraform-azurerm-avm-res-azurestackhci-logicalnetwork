@@ -118,14 +118,6 @@ Type: `bool`
 
 Default: `true`
 
-### <a name="input_ip_allocation_method"></a> [ip\_allocation\_method](#input\_ip\_allocation\_method)
-
-Description: The IP address allocation method, must be either 'Static' or 'Dynamic'.
-
-Type: `string`
-
-Default: `"Static"`
-
 ## Outputs
 
 No outputs.

@@ -22,14 +22,3 @@ For more information see <https://aka.ms/avm/telemetryinfo>.
 If it is set to false, then no telemetry will be collected.
 DESCRIPTION
 }
-
-variable "ip_allocation_method" {
-  type        = string
-  default     = "Static"
-  description = "The IP address allocation method, must be either 'Static' or 'Dynamic'."
-
-  validation {
-    condition     = contains(["Static", "Dynamic"], var.ip_allocation_method)
-    error_message = "The ip_allocation_method must be either 'Static' or 'Dynamic'."
-  }
-}
