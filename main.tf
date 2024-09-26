@@ -34,7 +34,7 @@ resource "azapi_resource" "logical_network" {
     }
     properties = {
       dhcpOptions = {
-        dnsServers = flatten(var.dns_servers)
+        dnsServers = var.ip_allocation_method == "Dynamic" ? null : flatten(var.dns_servers)
       }
       subnets = [{
         name       = var.subnet_0_name

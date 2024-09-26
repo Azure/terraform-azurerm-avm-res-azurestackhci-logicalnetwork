@@ -118,6 +118,14 @@ Type: `string`
 
 Default: `null`
 
+### <a name="input_ip_allocation_method"></a> [ip\_allocation\_method](#input\_ip\_allocation\_method)
+
+Description: The IP address allocation method, must be either 'Static' or 'Dynamic'.
+
+Type: `string`
+
+Default: `"Static"`
+
 ### <a name="input_lock"></a> [lock](#input\_lock)
 
 Description: Controls the Resource Lock configuration for this resource. The following properties can be specified:
