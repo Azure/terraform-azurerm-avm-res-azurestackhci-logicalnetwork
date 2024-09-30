@@ -88,7 +88,7 @@ The following input variables are required:
 
 ### <a name="input_custom_location_name"></a> [custom\_location\_name](#input\_custom\_location\_name)
 
-Description: The name of the custom location.
+Description: Enter the custom location name of your HCI cluster.
 
 Type: `string`
 
