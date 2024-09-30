@@ -40,9 +40,8 @@ module "test" {
   # source             = "Azure/avm-res-azurestackhci-logicalnetwork/azurerm"
   # version = "~> 0.1.0"
 
-  location            = data.azurerm_resource_group.rg.location
-  name                = var.logical_network_name
-  resource_group_name = data.azurerm_resource_group.rg.name
+  location = data.azurerm_resource_group.rg.location
+  name     = var.logical_network_name
 
   enable_telemetry   = var.enable_telemetry # see variables.tf
   resource_group_id  = data.azurerm_resource_group.rg.id
