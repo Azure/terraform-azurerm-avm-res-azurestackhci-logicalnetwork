@@ -52,10 +52,5 @@ resource "azapi_resource" "logical_network" {
     ignore_changes = [
       body.properties.subnets[0].properties.ipPools[0].info,
     ]
-
-    precondition {
-      condition     = length(var.starting_address) > 0 && length(var.ending_address) > 0 && length(var.default_gateway) > 0 && length(var.dns_servers) > 0 && length(var.address_prefix) > 0
-      error_message = "When not using existing logical network, starting_address, ending_address, default_gateway, dns_servers, address_prefix are required"
-    }
   }
 }
