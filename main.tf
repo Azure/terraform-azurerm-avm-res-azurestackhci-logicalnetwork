@@ -1,7 +1,3 @@
-data "azurerm_resource_group" "rg" {
-  name = var.resource_group_name
-}
-
 # required AVM resources interfaces
 resource "azurerm_management_lock" "this" {
   count = var.lock != null ? 1 : 0
@@ -16,7 +12,7 @@ resource "azurerm_role_assignment" "this" {
   for_each = var.role_assignments
 
   principal_id                           = each.value.principal_id
-  scope                                  = data.azurerm_resource_group.rg.id
+  scope                                  = var.resource_group_id
   condition                              = each.value.condition
   condition_version                      = each.value.condition_version
   delegated_managed_identity_resource_id = each.value.delegated_managed_identity_resource_id

@@ -19,12 +19,6 @@ variable "resource_group_id" {
   description = "The resource group ID for the Azure Stack HCI logical network."
 }
 
-# This is required for most resource modules
-variable "resource_group_name" {
-  type        = string
-  description = "The resource group where the resources will be deployed."
-}
-
 variable "vm_switch_name" {
   type        = string
   description = "The name of the virtual switch that is used by the network."
