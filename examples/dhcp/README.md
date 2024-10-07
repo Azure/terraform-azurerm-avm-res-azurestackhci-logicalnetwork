@@ -54,8 +54,6 @@ module "test" {
   custom_location_id = data.azapi_resource.customlocation.id
   vm_switch_name     = "ConvergedSwitch(managementcomputestorage)"
 
-  ip_allocation_method = "Dynamic"
-
   logical_network_tags = {
     environment = "development"
   }

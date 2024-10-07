@@ -62,8 +62,8 @@ variable "ending_address" {
 
 variable "ip_allocation_method" {
   type        = string
-  default     = "Static"
-  description = "The IP address allocation method, must be either 'Static' or 'Dynamic'."
+  default     = "Dynamic"
+  description = "The IP address allocation method, must be either 'Static' or 'Dynamic'. Default is dynamic"
 
   validation {
     condition     = contains(["Static", "Dynamic"], var.ip_allocation_method)
