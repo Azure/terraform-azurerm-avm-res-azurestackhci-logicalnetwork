@@ -60,6 +60,17 @@ variable "ending_address" {
   description = "The ending IP address of the IP address range."
 }
 
+variable "ip_allocation_method" {
+  type        = string
+  default     = "Dynamic"
+  description = "The IP address allocation method, must be either 'Static' or 'Dynamic'. Default is dynamic"
+
+  validation {
+    condition     = contains(["Static", "Dynamic"], var.ip_allocation_method)
+    error_message = "The ip_allocation_method must be either 'Static' or 'Dynamic'."
+  }
+}
+
 variable "lock" {
   type = object({
     kind = string

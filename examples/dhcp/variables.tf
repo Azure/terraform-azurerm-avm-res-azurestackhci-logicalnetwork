@@ -1,6 +1,6 @@
 variable "custom_location_name" {
   type        = string
-  description = "Enter the custom location name of your HCI cluster."
+  description = "The name of the custom location."
 }
 
 variable "logical_network_name" {

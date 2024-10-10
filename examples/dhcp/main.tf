@@ -46,13 +46,9 @@ module "test" {
   enable_telemetry   = var.enable_telemetry # see variables.tf
   resource_group_id  = data.azurerm_resource_group.rg.id
   custom_location_id = data.azapi_resource.customlocation.id
+  vm_switch_name     = "ConvergedSwitch(managementcomputestorage)"
 
-  vm_switch_name = "ConvergedSwitch(managementcomputestorage)"
-
-  ip_allocation_method = "Static"
-  starting_address     = "192.168.200.0"
-  ending_address       = "192.168.200.255"
-  dns_servers          = ["192.168.200.222"]
-  default_gateway      = "192.168.200.1"
-  address_prefix       = "192.168.200.0/24"
+  logical_network_tags = {
+    environment = "development"
+  }
 }
