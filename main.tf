@@ -46,6 +46,7 @@ resource "azapi_resource" "logical_network" {
 
   lifecycle {
     ignore_changes = [
+      body.properties.subnets[0].properties.ipConfigurationReferences,
       body.properties.subnets[0].properties.ipPools[0].info,
     ]
   }
