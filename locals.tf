@@ -24,6 +24,7 @@ locals {
           local.route_0_omit_null
         ]
       }
-    }
+    },
+    ipConfigurationReferences = null
   }
 }
