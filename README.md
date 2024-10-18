@@ -119,6 +119,20 @@ Type: `string`
 
 Default: `"Dynamic"`
 
+### <a name="input_ip_configuration_references"></a> [ip\_configuration\_references](#input\_ip\_configuration\_references)
+
+Description: A list of IP configuration references.
+
+Type:
+
+```hcl
+list(object({
+    ID = string
+  }))
+```
+
+Default: `null`
+
 ### <a name="input_lock"></a> [lock](#input\_lock)
 
 Description: Controls the Resource Lock configuration for this resource. The following properties can be specified:

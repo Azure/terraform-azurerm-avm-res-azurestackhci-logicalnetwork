@@ -33,13 +33,8 @@ resource "azapi_resource" "logical_network" {
         dnsServers = var.ip_allocation_method == "Dynamic" ? null : flatten(var.dns_servers)
       }
       subnets = [{
-        name = var.subnet_0_name
-        properties = merge(
-          local.subnet_0_properties,
-          {
-            ipConfigurationReferences = null
-          }
-        )
+        name       = var.subnet_0_name
+        properties = local.subnet_0_properties
       }]
       vmSwitchName = var.vm_switch_name
     }

@@ -71,6 +71,14 @@ variable "ip_allocation_method" {
   }
 }
 
+variable "ip_configuration_references" {
+  type = list(object({
+    ID = string
+  }))
+  default     = null
+  description = "A list of IP configuration references."
+}
+
 variable "lock" {
   type = object({
     kind = string
