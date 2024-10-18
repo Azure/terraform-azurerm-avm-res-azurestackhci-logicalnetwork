@@ -13,7 +13,10 @@ locals {
     addressPrefix      = var.ip_allocation_method == "Dynamic" ? null : var.address_prefix, # compute from starting address and ending address
     ipAllocationMethod = var.ip_allocation_method,
     ipPools = var.ip_allocation_method == "Dynamic" ? null : [{
-      info  = {}
+      info = {
+        available = null
+        used      = null
+      }
       start = var.starting_address
       end   = var.ending_address
     }]
