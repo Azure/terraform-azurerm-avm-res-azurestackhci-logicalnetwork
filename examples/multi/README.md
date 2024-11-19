@@ -1,7 +1,7 @@
 <!-- BEGIN_TF_DOCS -->
-# Default example
+# Multiple Logical Network Provisioning example
 
-This deploys the module in its simplest form.
+This deploys multiple logical networks.
 
 ```hcl
 terraform {
@@ -41,18 +41,18 @@ data "azapi_resource" "customlocation" {
 # Do not specify location here due to the randomization above.
 # Leaving location as `null` will cause the module to use the resource group location
 # with a data source.
-module "test" {
+module "call1" {
   source = "../../"
   # source             = "Azure/avm-res-azurestackhci-logicalnetwork/azurerm"
   # version = "~> 0.1.0"
 
   location = data.azurerm_resource_group.rg.location
-  name     = var.logical_network_name
+  name     = "lnetstatic"
 
   enable_telemetry   = var.enable_telemetry # see variables.tf
   resource_group_id  = data.azurerm_resource_group.rg.id
   custom_location_id = data.azapi_resource.customlocation.id
-  vm_switch_name     = "extSwitch"
+  vm_switch_name     = "ConvergedSwitch(managementcomputestorage)"
 
   ip_allocation_method = "Static"
   starting_address     = "192.168.200.0"
@@ -65,6 +65,22 @@ module "test" {
   logical_network_tags = {
     environment = "development"
   }
+}
+
+
+module "call2" {
+  source = "../../"
+  # source             = "Azure/avm-res-azurestackhci-logicalnetwork/azurerm"
+  # version = "~> 0.1.0"
+
+  location = data.azurerm_resource_group.rg.location
+  name     = "lnetdynamic"
+
+  enable_telemetry   = var.enable_telemetry # see variables.tf
+  resource_group_id  = data.azurerm_resource_group.rg.id
+  custom_location_id = data.azapi_resource.customlocation.id
+  vm_switch_name     = "ConvergedSwitch(managementcomputestorage)"
+
 }
 ```
 
@@ -97,12 +113,6 @@ Description: The name of the custom location.
 
 Type: `string`
 
-### <a name="input_logical_network_name"></a> [logical\_network\_name](#input\_logical\_network\_name)
-
-Description: The name of the logical network
-
-Type: `string`
-
 ### <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name)
 
 Description: The resource group where the resources will be deployed.
@@ -131,7 +141,13 @@ No outputs.
 
 The following Modules are called:
 
-### <a name="module_test"></a> [test](#module\_test)
+### <a name="module_call1"></a> [call1](#module\_call1)
+
+Source: ../../
+
+Version:
+
+### <a name="module_call2"></a> [call2](#module\_call2)
 
 Source: ../../
 
