@@ -195,7 +195,7 @@ Description: The name of the route
 
 Type: `string`
 
-Default: `"default"`
+Default: `null`
 
 ### <a name="input_starting_address"></a> [starting\_address](#input\_starting\_address)
 
