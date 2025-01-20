@@ -22,7 +22,7 @@ resource "azurerm_role_assignment" "this" {
 }
 
 resource "azapi_resource" "logical_network" {
-  type = "Microsoft.AzureStackHCI/logicalNetworks@2024-02-01-preview"
+  type = "Microsoft.AzureStackHCI/logicalNetworks@2023-09-01-preview"
   body = {
     extendedLocation = {
       name = var.custom_location_id
