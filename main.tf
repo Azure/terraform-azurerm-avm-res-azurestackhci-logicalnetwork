@@ -37,7 +37,7 @@ resource "azapi_resource" "logical_network" {
         properties = merge(
           local.subnet_0_properties,
           {
-            ipConfigurationReferences = null
+            ipConfigurationReferences = var.ip_configuration_references
           }
         )
       }]
