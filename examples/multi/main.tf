@@ -1,5 +1,6 @@
 terraform {
   required_version = "~> 1.5"
+
   required_providers {
     azapi = {
       source  = "azure/azapi"
@@ -27,9 +28,9 @@ data "azurerm_resource_group" "rg" {
 }
 
 data "azapi_resource" "customlocation" {
-  type      = "Microsoft.ExtendedLocation/customLocations@2021-08-15"
   name      = var.custom_location_name
   parent_id = data.azurerm_resource_group.rg.id
+  type      = "Microsoft.ExtendedLocation/customLocations@2021-08-15"
 }
 
 # This is the module call
@@ -38,42 +39,32 @@ data "azapi_resource" "customlocation" {
 # with a data source.
 module "call1" {
   source = "../../"
-  # source             = "Azure/avm-res-azurestackhci-logicalnetwork/azurerm"
-  # version = "~> 0.1.0"
 
-  location = data.azurerm_resource_group.rg.location
-  name     = "lnetstatic"
-
-  enable_telemetry   = var.enable_telemetry # see variables.tf
-  resource_group_id  = data.azurerm_resource_group.rg.id
-  custom_location_id = data.azapi_resource.customlocation.id
-  vm_switch_name     = "ConvergedSwitch(managementcomputestorage)"
-
-  ip_allocation_method = "Static"
-  starting_address     = "192.168.200.0"
-  ending_address       = "192.168.200.255"
+  custom_location_id   = data.azapi_resource.customlocation.id
+  location             = data.azurerm_resource_group.rg.location
+  name                 = "lnetstatic"
+  resource_group_id    = data.azurerm_resource_group.rg.id
+  vm_switch_name       = "ConvergedSwitch(managementcomputestorage)"
+  address_prefix       = "192.168.200.0/24"
   default_gateway      = "192.168.200.1"
-
-  dns_servers    = ["192.168.200.222"]
-  address_prefix = "192.168.200.0/24"
-
+  dns_servers          = ["192.168.200.222"]
+  enable_telemetry     = var.enable_telemetry # see variables.tf
+  ending_address       = "192.168.200.255"
+  ip_allocation_method = "Static"
   logical_network_tags = {
     environment = "development"
   }
+  starting_address = "192.168.200.0"
 }
 
 
 module "call2" {
   source = "../../"
-  # source             = "Azure/avm-res-azurestackhci-logicalnetwork/azurerm"
-  # version = "~> 0.1.0"
 
-  location = data.azurerm_resource_group.rg.location
-  name     = "lnetdynamic"
-
-  enable_telemetry   = var.enable_telemetry # see variables.tf
-  resource_group_id  = data.azurerm_resource_group.rg.id
   custom_location_id = data.azapi_resource.customlocation.id
+  location           = data.azurerm_resource_group.rg.location
+  name               = "lnetdynamic"
+  resource_group_id  = data.azurerm_resource_group.rg.id
   vm_switch_name     = "ConvergedSwitch(managementcomputestorage)"
-
+  enable_telemetry   = var.enable_telemetry # see variables.tf
 }
