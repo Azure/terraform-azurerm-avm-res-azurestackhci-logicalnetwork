@@ -22,7 +22,10 @@ resource "azurerm_role_assignment" "this" {
 }
 
 resource "azapi_resource" "logical_network" {
-  type = "Microsoft.AzureStackHCI/logicalNetworks@2024-02-01-preview"
+  location  = var.location
+  name      = var.name
+  parent_id = var.resource_group_id
+  type      = "Microsoft.AzureStackHCI/logicalNetworks@2024-02-01-preview"
   body = {
     extendedLocation = {
       name = var.custom_location_id
@@ -44,10 +47,7 @@ resource "azapi_resource" "logical_network" {
       vmSwitchName = var.vm_switch_name
     }
   }
-  location  = var.location
-  name      = var.name
-  parent_id = var.resource_group_id
-  tags      = var.logical_network_tags
+  tags = var.logical_network_tags
 
   lifecycle {
     ignore_changes = [
