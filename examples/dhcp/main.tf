@@ -45,7 +45,7 @@ module "test" {
   name               = var.logical_network_name
   resource_group_id  = data.azurerm_resource_group.rg.id
   vm_switch_name     = "ConvergedSwitch(managementcomputestorage)"
-  enable_telemetry   = var.enable_telemetry # see variables.tf
+  enable_telemetry   = false # see variables.tf
   logical_network_tags = {
     environment = "development"
   }
