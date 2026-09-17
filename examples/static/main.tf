@@ -48,7 +48,7 @@ module "test" {
   address_prefix       = "192.168.200.0/24"
   default_gateway      = "192.168.200.1"
   dns_servers          = ["192.168.200.222"]
-  enable_telemetry     = var.enable_telemetry # see variables.tf
+  enable_telemetry     = false # see variables.tf
   ending_address       = "192.168.200.255"
   ip_allocation_method = "Static"
   logical_network_tags = {
