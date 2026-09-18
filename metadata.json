@@ -1,0 +1,10 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/azure-verified-modules-tools/main/src/Avm.Authoring/Resources/Schemas/v1/avm-module-metadata.schema.json",
+  "moduleDisplayName": "AzureStackHCI logical network",
+  "moduleDescription": "AVM Resource Module for AzureStackHCI logical network",
+  "canonicalType": "Microsoft.AzureStackHCI/logicalNetworks",
+  "owners": [
+    "chirag1603"
+  ],
+  "telemetryIdPrefix": "46d3xtrf.res.196961a"
+}
