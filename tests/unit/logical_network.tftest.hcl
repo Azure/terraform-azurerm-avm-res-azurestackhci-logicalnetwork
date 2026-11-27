@@ -4,11 +4,14 @@ mock_provider "azapi" {
       id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/hci-test/providers/Microsoft.AzureStackHCI/logicalNetworks/network-test"
     }
   }
+  mock_data "azapi_client_config" {
+    defaults = {
+      subscription_resource_id = "/subscriptions/00000000-0000-0000-0000-000000000000"
+    }
+  }
 }
 
 mock_provider "azurerm" {}
-mock_provider "modtm" {}
-mock_provider "random" {}
 
 variables {
   custom_location_id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/hci-test/providers/Microsoft.ExtendedLocation/customLocations/hci-test"
@@ -26,8 +29,6 @@ run "dynamic_network" {
   providers = {
     azapi   = azapi
     azurerm = azurerm
-    modtm   = modtm
-    random  = random
   }
 
   assert {
@@ -53,8 +54,6 @@ run "static_network_with_lock" {
   providers = {
     azapi   = azapi
     azurerm = azurerm
-    modtm   = modtm
-    random  = random
   }
 
   variables {
